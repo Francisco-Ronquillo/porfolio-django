@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+{% load custom_filters %}
+{%block content%}
+{% load static %}
+
+<header class="row bg-dark">
+    <div class="col-md-4 ">
+        <img src="{% static 'porfolio/perfil.jpg'%}" alt="">
+    </div>
+
+    <div class="col-md-8 my-auto">
+        <h1>I am <strong>Ryan Ray</strong></h1>
+        <h3>I am a Python FullStack Developer</h3>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, nobis eveniet magnam voluptatibus rem earum hic ut odit, ad omnis debitis facere mollitia blanditiis quisquam perferendis consectetur ea at accusamus ipsam explicabo! Distinctio impedit rerum delectus velit minus hic itaque eaque quod quasi repellat perspiciatis recusandae esse dolores nesciunt similique, provident blanditiis veniam ex consequatur alias nulla ad assumenda pariatur veritatis! Iusto magni incidunt repellendus consectetur autem quidem! At alias nemo vero accusantium provident repudiandae aliquid eos itaque aliquam quasi error beatae, praesentium in sit, ut voluptatum ipsum corporis ad incidunt obcaecati, rem facere? Laudantium repellat eveniet culpa vel maiores fugit a voluptates molestiae sequi vero nulla blanditiis provident reiciendis voluptatibus delectus distinctio, pariatur porro sint tempora natus aperiam officia recusandae, eligendi est? Corporis dignissimos, quibusdam doloribus sunt error quas ullam ab vel vitae, atque laudantium. Totam asperiores corrupti assumenda unde ex autem voluptatum aut atque fugit, magni facere nam cupiditate at labore, consequuntur aspernatur numquam eaque exercitationem non! Quos voluptate expedita similique nulla natus inventore blanditiis sed quo dignissimos incidunt ipsa suscipit quidem, facere dolor, quibusdam ipsam minus velit? Commodi eveniet qui, laboriosam dolore non nihil facilis vero aliquid explicabo deserunt fugiat quibusdam a ea soluta, voluptatem excepturi minima!</p>
+        <a href="{% static 'porfolio/cv.pdf' %}" class="btn btn-primary btn-lg rounded-0 my-3">Download cv</a>
+    </div>
+</header>
+
+
+<div class="row my-4 text-center">
+    <h3>My Projects</h3>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque.</p>
+    {% for project in projects %}
+    <div class="col-md-4 p-4 ">
+        <div class="card bg-black card-project text-light">
+            <img src="{{project.image.url}}" alt="{{project.title}}" class="card img-top" />
+            <div class="card-body">
+            <h2>{{project.title}}</h2>
+            <p>{{project.descripcion}}</p>
+            {% if project.url %}
+                <a href="{{project.url}}" class="btn btn-light round-0 btn-sm" target="_blank">Link del proyecto</a>
+            {% endif %}
+            </div>
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+<div class="row my-4 text-center">
+    <h3>My Experience</h3>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque.</p>
+    {% for experiencia in experience %}
+    <div class="col-md-4 p-4 ">
+        <div class="card bg-black card-project text-light">
+            <img src="{{project.image.url}}" alt="{{project.title}}" class="card img-top" />
+            <div class="card-body">
+            
+            <h2>{{experiencia.institucion_del_curso}}</h2>
+            <p>{{experiencia.descripcion_curso}}</p>
+            <p><strong>Feahca de realizacion:</strong>{{experiencia.fecha_curso}}</p>
+            <p><strong>Horas:</strong> {{experiencia.numero_horas|horas_y_minutos}}</p>
+            </div>
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+<div class="row my-4 text-center">
+    <h3>Mis referencias laborales</h3>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque.</p>
+    <a class="btn btn-primary mb-sm-2" href="{% url 'porfolio:referencia_create' %}">Nuevo registro</a>
+    {% for referencia in testimonio %}
+
+    <div class="col-md-4 p-4 ">
+        <div class="card bg-black card-project text-light">
+            <div class="card-body">
+            
+            <h2>{{referencia.nombre_test}}</h2>
+            <p>{{referencia.relacion}}</p>
+            <p><strong>Telefono:</strong>{{referencia.telefono}}</p>
+            <p><strong>Correo:</strong> {{referencia.correo}}</p>
+            <p>{{referencia.descripcion}}</p>
+            </div>
+            <td>
+                <a href="{% url 'porfolio:referencia_update' referencia.id %} "class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'porfolio:referencia_delete' referencia.id %} "class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+{%endblock%}
